@@ -4,6 +4,8 @@ import ssl
 import re
 import json
 
+#scrapes data from wikibooks, to have it in a dictionary of bazi[year][month][date]
+
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
@@ -20,30 +22,18 @@ yearurl = re.findall('wiki/Ba_Zi/[0-9][0-9][0-9][0-9]' , str(soup('a')))
 
 bazidict = {}
 
-idx = None
-Syear = None
-Smonth = None
-Sday = None
-HSyear = None
-EByear = None
-HSmonth = None
-EBmonth = None
-HSday = None
-EBday = None
-Season = None
-
 switches = {
-    0: idx,
-    1: Syear,
-    2: Smonth,
-    3: Sday,
-    4: HSyear,
-    5: EByear,
-    6: HSmonth,
-    7: EBmonth,
-    8: HSday,
-    9: EBday,
-    10: Season
+    0: None,
+    1: None,
+    2: None,
+    3: None,
+    4: None,
+    5: None,
+    6: None,
+    7: None,
+    8: None,
+    9: None,
+    10: None
 }
 
 
@@ -108,13 +98,7 @@ for year in yearurl:
 
         indicator = (indicator+1)%11
 
-for year in bazidict:
-    for month in bazidict[year]:
-        for day in bazidict[year][month]:
-            print('year', year)
-            print('month', month)
-            print('day', day)
-            print('sequence', modic[month][day])
-
 with open('bazi.json','w') as outfile:
     json.dump(bazidict, outfile)
+
+print("successfully scraped data and write it to json")
