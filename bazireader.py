@@ -1,7 +1,7 @@
 import json
 from calendar import isleap
 from datetime import datetime, date, time, timedelta
-import solartimecalculator
+from solartimecalculator import solartime
 
 #imports json data from bazi-scrapper, and takes in arguments for bazi to extract that data
 bazidata = {}
@@ -82,14 +82,10 @@ def bazivalues(bazidt):
 
     #still shifting HS by 1, do hourcycle first and then add 1 to it
     HShourpointer = HShourpointer%10
-    print ("starting at:",HShourpointer + 1)
-
-    HSHour, EBHour = hourcycle(HShourpointer, bazidt)
 
     bazichart = bazidata[year][month][day]
 
-    bazichart['HSHour'] = HSHour
-    bazichart['EBHour'] = EBHour
+    bazichart['HSHour'], bazichart['EBHour'] = hourcycle(HShourpointer, bazidt)
 
     return bazichart
 
@@ -137,7 +133,7 @@ readdate = datetime(1996, 8 , 4, 14, 0, 0, 0)
 tzoffset = 8
 longitude = 121.0437
 
-solarreaddate = solartimecalculator.solartime(readdate, tzoffset, longitude)
+solarreaddate = solartime(readdate, tzoffset, longitude)
 
 print(solarreaddate)
 
