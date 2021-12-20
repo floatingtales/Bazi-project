@@ -129,9 +129,9 @@ def bazireader(bazidict):
 
     print(HSyear, EByear, HSmonth, EBmonth, HSday, EBday, HShour, EBhour)
 
-readdate = datetime(2000, 6 , 20, 9, 58, 0, 0)
-tzoffset = -7
-longitude = -117.381007
+readdate = datetime(2021, 7 , 19, 23, 27, 0, 0)
+tzoffset = +8
+longitude = +103.8355
 
 solarreaddate = solartime(readdate, tzoffset, longitude)
 
